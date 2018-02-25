@@ -17,11 +17,15 @@ import okio.Okio;
 
 /**
  * Created by danielchoi on 2/24/18.
+ * This Async task runs the internet side in the background. It uses OKHttp to contact the server
+ * and retrieve information.
  */
 
 public class MessagelistAsyncTask extends AsyncTask<String, String, String> {
 
     private MessageListAdapter messageListAdapter;
+
+    //MediaType to be used for the OKHttp client
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
     public List<Message> messages;
@@ -32,11 +36,16 @@ public class MessagelistAsyncTask extends AsyncTask<String, String, String> {
     }
 
 
+    /**
+     * This method calls the okHttpClient in the background and does a POST Request. It sends the
+     * user's typed message as an input and retrieves the bot's reply as an output.
+     *
+     * @param strings : The user's input
+     * @return : The bot's encoded response
+     */
     @Override
     protected String doInBackground(String... strings) {
         try {
-            System.out.println("User input: " + strings[0]);
-
             OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
             String json = "{\"message\":\"" + strings[0] + "\"}";
 
@@ -44,7 +53,6 @@ public class MessagelistAsyncTask extends AsyncTask<String, String, String> {
                     .url("https://mirror-image.herokuapp.com")
                     .post(RequestBody.create(JSON, json)).build();
 
-            System.out.println("Request body:" + request.body().toString());
             try {
                 Response response = okHttpClient.newCall(request).execute();
                 return decodeBody(response);
@@ -58,6 +66,11 @@ public class MessagelistAsyncTask extends AsyncTask<String, String, String> {
         return null;
     }
 
+    /**
+     * This method adds the robot's message to the List and to the Adapter.
+     *
+     * @param output : Decoded version of the robot's message
+     */
     @Override
     protected void onPostExecute(String output) {
         if (output == null || output.equals("")) {
@@ -71,6 +84,8 @@ public class MessagelistAsyncTask extends AsyncTask<String, String, String> {
     }
 
 
+    // retrieved from: https://gist.github.com/vovkab/b9c8ffa86d97e685d3cb
+    // Decodes the responses from OKHttp client
 
     private String decodeBody(Response response) throws IOException {
         final ResponseBody body = response.body();

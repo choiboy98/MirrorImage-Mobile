@@ -31,6 +31,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         mMessageList = messageList;
     }
 
+    /**
+     * This adds a new list to the existing list.
+     *
+     * @param addition : New list to add to the current one
+     */
     public void addList(List<Message> addition) {
         for (int i =0; i < addition.size(); i++) {
             mMessageList.add(addition.get(i));
@@ -56,7 +61,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    // Inflates the appropriate layout according to the ViewType.
+    /**
+     * This method inflates the appropriate layout according to the ViewType.
+     * 0 if it is the bot (MESSAGE RECEIVED)
+     * 1 if it is the person (MESSAGE SENT)
+     *
+     * @param parent : The parent viewgroup
+     * @param viewType : 0 for bot. 1 for person
+     * @return : Depending on the value, returns the message sent layout or message received layout
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -74,7 +87,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         return null;
     }
 
-    // Passes the message object to a ViewHolder so that the contents can be bound to UI.
+    /**
+     * This method passes the message object to a ViewHolder, so that contents can be bound to UI.
+     * Similar as the method above
+     * @param holder : Message sent or messaged received layout
+     * @param position : Which message to pull out from the list
+     */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Message message = mMessageList.get(position);
@@ -88,7 +106,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    // The user's chat bubble
+    /**
+     * This method inflates the user's chat
+     */
     private class SentMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         TextView timeText;
@@ -108,7 +128,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    // The bot's chat bubble
+    /**
+     * This method inflates the bot's chat
+     */
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         TextView timeText;

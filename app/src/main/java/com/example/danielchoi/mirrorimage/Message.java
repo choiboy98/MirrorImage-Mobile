@@ -12,7 +12,7 @@ public class Message {
 
     private int sender; // 0 if the sender is a bot; 1 if the sender is a person.
     private String message; // the actual message
-    private Date time;
+    private Date time; // Timestamp of when the messages were sent
 
     public Message(int sender, String message) {
         this.sender = sender;

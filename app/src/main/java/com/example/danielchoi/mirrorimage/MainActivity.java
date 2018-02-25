@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Created by danielchoi on 2/24/18.
+ * This program starts the application and prompts the user to click anywhere on the screen to
+ * proceed.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
