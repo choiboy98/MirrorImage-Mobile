@@ -15,8 +15,6 @@ import okhttp3.ResponseBody;
 import okio.GzipSource;
 import okio.Okio;
 
-import static java.sql.Types.NULL;
-
 /**
  * Created by danielchoi on 2/24/18.
  */
