@@ -31,6 +31,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         mMessageList = messageList;
     }
 
+    public void addList(List<Message> addition) {
+        for (int i =0; i < addition.size(); i++) {
+            mMessageList.add(addition.get(i));
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mMessageList.size();
